@@ -1,0 +1,4 @@
+Usuario (id, nome, email, senha, ativo, tipo)
+Salao (id, nome, detalhes)
+AchadoPerdido(id, usuarioCadastro, dataCadastro, objeto, obs, usuarioRetirada, dataRetirada)
+Reserva (id, salao, usuario, dataReserva, dataInicio, dataFim, status)
