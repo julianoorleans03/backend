@@ -41,6 +41,20 @@ exports.get = async (req, res, next) => {
   }
 };
 
+exports.getById = async (req, res, next) => {
+  try {
+    var data = await repository.searchById(req.params.id);
+    res.status(200).send(data);
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).send({
+      message: "Falha ao processar sua requisição.",
+    });
+  }
+};
+
+
 exports.updateActive = async (req, res, next) => {
   try {
     await repository.updateActive(req.params.id, req.body.ativo);
@@ -77,14 +91,14 @@ exports.authenticate = async (req, res, next) => {
     });
 
     if (!usuario) {
-      res.status(404).send({
+      res.status(401).send({
         message: "Usuário ou senha inválidos",
       });
       return;
     }
 
     if (!usuario.ativo) {
-      res.status(404).send({
+      res.status(401).send({
         message: "Usuário não confirmado pelo administrador.",
       });
       return;
@@ -94,7 +108,7 @@ exports.authenticate = async (req, res, next) => {
       id: usuario._id,
       email: usuario.email,
       nome: usuario.nome,
-      tipo: usuario.tipo,
+      tipo: usuario.tipo
     });
 
     res.status(201).send({
@@ -102,7 +116,8 @@ exports.authenticate = async (req, res, next) => {
       data: {
         email: usuario.email,
         nome: usuario.nome,
-        id: usuario._id
+        id: usuario._id,
+        tipo: usuario.tipo
       },
     });
   } catch (error) {

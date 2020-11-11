@@ -28,6 +28,11 @@ exports.search = async () => {
     return res;
 };
 
+exports.searchById = async (id) => {
+    const res = await Usuario.findById(id);
+    return res;
+};
+
 exports.authenticate = async (data) => {
     const res = await Usuario.findOne({
         email: data.email,

@@ -47,7 +47,8 @@ exports.put = async (req, res, next) => {
 
 exports.entregarObjeto = async (req, res, next) => {
     try {
-        await repository.entregarObjeto(req.params.id, { usuarioRetirada: req.body.usuarioRetirada, dataRetirada: req.body.dataRetirada });
+        let dataRetirada = new Date();
+        await repository.entregarObjeto(req.params.id, { usuarioRetirada: req.body.usuarioRetirada, dataRetirada: dataRetirada });
         res.status(200).send({
             message: "Objeto foi entregue com sucesso!",
         });
