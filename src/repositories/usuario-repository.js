@@ -11,6 +11,7 @@ exports.update = async (id, data) => {
     await Usuario.findByIdAndUpdate(id, {
         $set: {
             nome: data.nome,
+            senha: data.senha
         },
     });
 };

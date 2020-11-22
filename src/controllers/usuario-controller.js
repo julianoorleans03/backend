@@ -72,6 +72,9 @@ exports.updateActive = async (req, res, next) => {
 
 exports.put = async (req, res, next) => {
   try {
+
+    req.body.senha = md5(req.body.senha + global.SALT_KEY);
+
     await repository.update(req.params.id, req.body);
     res.status(200).send({
       message: "Usuário foi alterado com sucesso!",
