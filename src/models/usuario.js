@@ -13,6 +13,8 @@ const schema = new Schema({
     senha: { type: String, required: true },
     ativo: { type: Boolean, required: true, default: false },
     tipo: { type: String, required: true, enum: ["user", "admin"], default: "user" },
+    bloco: { type: String},
+    numeroApartamento: { type: String},
 });
 
 module.exports = mongoose.model("Usuario", schema);

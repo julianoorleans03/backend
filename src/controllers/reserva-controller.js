@@ -9,7 +9,8 @@ exports.post = async (req, res, next) => {
             usuario: usuarioCadastro,
             salao: req.body.salao,
             dataInicio: req.body.dataInicio,
-            dataFim: req.body.dataFim
+            dataFim: req.body.dataFim,
+            titulo: req.body.titulo
         });
 
         res.status(201).send({
@@ -51,6 +52,20 @@ exports.cancelarReserva = async (req, res, next) => {
         await repository.cancelarReserva(req.params.id, req.body.status);
         res.status(200).send({
             message: "Reserva cancelada com sucesso!",
+        });
+    } catch (error) {
+        res.status(500).send({
+            message: "Falha ao processar sua requisição.",
+        });
+    }
+};
+
+
+exports.put = async (req, res, next) => {
+    try {
+        await repository.put(req.params.id, req.body.titulo);
+        res.status(200).send({
+            message: "Reserva Alterada com sucesso!",
         });
     } catch (error) {
         res.status(500).send({

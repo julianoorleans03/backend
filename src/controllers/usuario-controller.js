@@ -54,7 +54,6 @@ exports.getById = async (req, res, next) => {
   }
 };
 
-
 exports.updateActive = async (req, res, next) => {
   try {
     await repository.updateActive(req.params.id, req.body.ativo);
@@ -88,9 +87,27 @@ exports.put = async (req, res, next) => {
 
 exports.authenticate = async (req, res, next) => {
   try {
-    const usuario = await repository.authenticate({
-      email: req.body.email,
-      senha: md5(req.body.senha + global.SALT_KEY),
+    let usuario = await repository.searchByEmail({
+      email: req.body.email
+    });
+
+    if (!usuario && req.body.facebook) {
+      await repository.create({
+        nome: req.body.email,
+        email: req.body.email,
+        senha: md5(req.body.email + global.SALT_KEY),
+        ativo: false,
+        tipo: "user",
+      });
+
+      usuario = await repository.searchByEmail({
+        email: req.body.email
+      });
+    }
+
+    usuario = await repository.authenticate({
+      email: req.body.facebook ? usuario.email: req.body.email,
+      senha: req.body.facebook ?  usuario.senha : md5(req.body.senha + global.SALT_KEY),
     });
 
     if (!usuario) {
@@ -123,7 +140,8 @@ exports.authenticate = async (req, res, next) => {
         tipo: usuario.tipo
       },
     });
-  } catch (error) {
+  } catch (error) {    
+    console.log(error);
     res.status(500).send({
       message: "Falha ao processar sua requisição.",
     });

@@ -21,9 +21,17 @@ exports.confirmarReserva = async (id, data) => {
 };
 
 exports.cancelarReserva = async (id, data) => {
-  await Reserva.findByIdAndUpdate(id, {
-      $set: {
-          status: "cancelada"
-      },
-  });
+    await Reserva.findByIdAndUpdate(id, {
+        $set: {
+            status: "cancelada"
+        },
+    });
+};
+
+exports.put = async (id, data) => {
+    await Reserva.findByIdAndUpdate(id, {
+        $set: {
+            titulo: data
+        },
+    });
 };

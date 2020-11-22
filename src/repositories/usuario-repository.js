@@ -11,7 +11,9 @@ exports.update = async (id, data) => {
     await Usuario.findByIdAndUpdate(id, {
         $set: {
             nome: data.nome,
-            senha: data.senha
+            senha: data.senha,
+            numeroApartamento: data.numeroApartamento,
+            bloco: data.bloco
         },
     });
 };
@@ -38,6 +40,13 @@ exports.authenticate = async (data) => {
     const res = await Usuario.findOne({
         email: data.email,
         senha: data.senha,
+    });
+    return res;
+};
+
+exports.searchByEmail = async (data) => {
+    const res = await Usuario.findOne({
+        email: data.email
     });
     return res;
 };

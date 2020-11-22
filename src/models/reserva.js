@@ -16,11 +16,11 @@ const schema = new Schema({
         required: true,
     },
     dataInicio: {
-        type: Date,
+        type: String,
         required: true,
     },
     dataFim: {
-        type: Date,
+        type: String,
         required: true,
     },
     status: {
@@ -28,7 +28,8 @@ const schema = new Schema({
         required: true,
         enum: ["pendente", "confirmada", "cancelada"],
         default: "pendente",
-    }
+    },
+    titulo: { type: String }
 });
 
 module.exports = mongoose.model("Reserva", schema);
