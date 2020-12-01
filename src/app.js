@@ -16,11 +16,13 @@ const Usuario = require("./models/usuario");
 const Salao = require("./models/salao");
 const AchadoPerdido = require("./models/achadoperdido");
 const Reserva = require("./models/reserva");
+const Datasreserva = require("./models/datasreserva");
 
 const salaoRoute = require("./routes/salao-route");
 const usuarioRoute = require("./routes/usuario-route");
 const achadoPerdidoRoute = require("./routes/achadoperdido-route");
 const reservaRoute = require("./routes/reserva-route");
+const datasreservaRoute = require("./routes/datasreserva-route");
 
 app.use(bodyParser.json({ limit: "5mb" }));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -39,5 +41,5 @@ app.use("/salao", salaoRoute);
 app.use("/usuario", usuarioRoute);
 app.use("/achadoperdido", achadoPerdidoRoute);
 app.use("/reserva", reservaRoute);
-
+app.use("/datasreserva", datasreservaRoute);
 module.exports = app;

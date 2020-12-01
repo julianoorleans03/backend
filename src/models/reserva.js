@@ -5,10 +5,12 @@ const schema = new Schema({
     salao: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Salao",
+        required: true,
     },
     usuario: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Usuario",
+        required: true,
     },
     dataReserva: {
         type: Date,

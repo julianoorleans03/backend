@@ -3,10 +3,10 @@ const authService = require("../services/auth-service");
 
 exports.post = async (req, res, next) => {
     try {
-        let usuarioCadastro = await authService.userCurrent(authService.getToken(req));
+        
 
-        await repository.create({
-            usuario: usuarioCadastro,
+        let data = await repository.create({
+            usuario: req.body.usuario,
             salao: req.body.salao,
             dataInicio: req.body.dataInicio,
             dataFim: req.body.dataFim,
@@ -14,7 +14,8 @@ exports.post = async (req, res, next) => {
         });
 
         res.status(201).send({
-            message: "Reservado com sucesso! Aguarde a confirmação do Adminstrador.",
+            message: "Reservado com sucesso!",
+            data: data
         });
     } catch (error) {
         res.status(500).send({

@@ -4,7 +4,7 @@ const Reserva = mongoose.model("Reserva");
 
 exports.create = async (data) => {
   var reserva = new Reserva(data);
-  await reserva.save();
+  return await reserva.save();
 };
 
 exports.search = async () => {
