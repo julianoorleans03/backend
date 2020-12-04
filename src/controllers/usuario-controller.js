@@ -10,6 +10,7 @@ exports.post = async (req, res, next) => {
       senha: md5(req.body.senha + global.SALT_KEY),
       ativo: req.body.ativo,
       tipo: req.body.tipo,
+      emailNotificacao: req.body.email
     });
 
     let msg = "Usuário cadastrado com sucesso!"

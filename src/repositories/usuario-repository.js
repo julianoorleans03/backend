@@ -13,7 +13,8 @@ exports.update = async (id, data) => {
             nome: data.nome,
             senha: data.senha,
             numeroApartamento: data.numeroApartamento,
-            bloco: data.bloco
+            bloco: data.bloco,
+            emailNotificacao: data.emailNotificacao
         },
     });
 };

@@ -15,6 +15,13 @@ const schema = new Schema({
     tipo: { type: String, required: true, enum: ["user", "admin"], default: "user" },
     bloco: { type: String},
     numeroApartamento: { type: String},
+    emailNotificacao: {
+        type: String,
+        required: true,
+        trim: true,
+        index: true,
+        unique: true,
+    },
 });
 
 module.exports = mongoose.model("Usuario", schema);
