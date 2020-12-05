@@ -10,5 +10,6 @@ router.get("/", authService.authorize, controller.get);
 router.get("/:id", authService.authorize, controller.getById);
 router.put("/ativar/:id", authService.isAdmin, controller.updateActive);
 router.put("/:id", controller.put);
+router.post("/enviar-notificacao", controller.enviarNotificacao);
 
 module.exports = router;

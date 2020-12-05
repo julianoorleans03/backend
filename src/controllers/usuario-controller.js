@@ -156,3 +156,19 @@ exports.authenticate = async (req, res, next) => {
     });
   }
 };
+
+exports.enviarNotificacao = async (req, res, next) => {
+  try {
+    let msg = "E-mail Enviado com sucesso"
+
+    email.enviarEmail(req.body);
+    res.status(201).send({
+      message: msg,
+    });
+  } catch (error) {
+    console.log(error)
+    res.status(500).send({
+      message: "Falha ao processar sua requisição.",
+    });
+  }
+};

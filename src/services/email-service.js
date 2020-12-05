@@ -53,3 +53,15 @@ exports.enviarEmailUsuarioLiberado = async function (usuario) {
         enviarEmail(emailASerEnviado);
     }
 }
+
+
+exports.enviarEmail = async function (data) {
+    var emailASerEnviado = {
+        from: "julianoorleans03@gmail.com",
+        to: data.emailNotificacao,
+        subject: data.assunto,
+        text: data.notificacao,
+    };
+
+    enviarEmail(emailASerEnviado);
+}
