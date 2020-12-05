@@ -26,6 +26,7 @@
     "moment": "^2.29.1",
     "moment-timezone": "^0.5.31",
     "mongoose": "^5.10.11",
+    "nodemailer": "^6.4.16",
     "nodemon": "^2.0.6"
   }
 }

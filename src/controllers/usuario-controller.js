@@ -1,6 +1,7 @@
 const repository = require("../repositories/usuario-repository");
 const md5 = require("md5");
 const authService = require("../services/auth-service");
+const email = require("../services/email-service");
 
 exports.post = async (req, res, next) => {
   try {
@@ -10,7 +11,7 @@ exports.post = async (req, res, next) => {
       senha: md5(req.body.senha + global.SALT_KEY),
       ativo: req.body.ativo,
       tipo: req.body.tipo,
-      emailNotificacao: req.body.email
+      emailNotificacao: req.body.emailNotificacao ? req.body.emailNotificacao : req.body.email
     });
 
     let msg = "Usuário cadastrado com sucesso!"
@@ -19,10 +20,12 @@ exports.post = async (req, res, next) => {
       msg += " Solicite a liberação para o administrador do condomínio.";
     }
 
+    email.enviarEmailNovoUsuario(req.body.email);
     res.status(201).send({
       message: msg,
     });
   } catch (error) {
+    console.log(error)
     res.status(500).send({
       message: "Falha ao processar sua requisição.",
     });
@@ -57,7 +60,12 @@ exports.getById = async (req, res, next) => {
 
 exports.updateActive = async (req, res, next) => {
   try {
+    console.log(req.params.id);
     await repository.updateActive(req.params.id, req.body.ativo);
+    
+    let usuario = await repository.searchById(req.params.id);
+
+    email.enviarEmailUsuarioLiberado(usuario);
     res.status(200).send({
       message: "Usuário foi ativado com sucesso!",
     });
